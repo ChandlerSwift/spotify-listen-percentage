@@ -21,6 +21,7 @@ track_data=[]
 find_manually=[]
 could_not_find_track=[]
 failed = []
+zerodivides = []
 
 for i, lastfm_track in enumerate(lastfm_top_tracks):
     try:
@@ -51,6 +52,8 @@ for i, lastfm_track in enumerate(lastfm_top_tracks):
 
         time.sleep(2) # I don't think Spotify's going to ban me, but doesn't hurt
                     # to be a little extra careful!
+    except ZeroDivisionError:
+        zerodivides.append(lastfm_track)
     except Exception as e:
         failed.append(lastfm_track)
         # Sometimes things crash. This might give me a chance to continue, if I want.
