@@ -19,12 +19,18 @@ lastfm_top_tracks = network.get_user("chandlerswift").get_top_tracks(stream=True
 
 track_data=[]
 find_manually=[]
+could_not_find_track=[]
 
 for i, lastfm_track in enumerate(lastfm_top_tracks):
     try:
-        spotify_track = spotify.search(
-            f"{lastfm_track.item.artist.name} {lastfm_track.item.title}", types=["track"], limit=1
-        ).tracks[0]
+        try:
+            spotify_track = spotify.search(
+                f"{lastfm_track.item.artist.name} {lastfm_track.item.title}", types=["track"], limit=1
+            ).tracks[0]
+        except IndexError:
+            print(f"Could not find track {lastfm_track.item.title}")
+            could_not_find_track.append(lastfm_track)
+            continue
 
         res = requests.get(f"http://localhost:8080/albumPlayCount?albumid={spotify_track.album.id}").json()
 
