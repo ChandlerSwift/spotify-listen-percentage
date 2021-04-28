@@ -54,8 +54,6 @@ for i, lastfm_track in enumerate(lastfm_top_tracks):
         # Sometimes things crash. This might give me a chance to continue, if I want.
         print(e)
         input("continue? ")
-    if i > 50:
-        break
 
 for i, lastfm_track in enumerate(find_manually):
     try:
