@@ -20,6 +20,7 @@ lastfm_top_tracks = network.get_user("chandlerswift").get_top_tracks(stream=True
 track_data=[]
 find_manually=[]
 could_not_find_track=[]
+failed = []
 
 for i, lastfm_track in enumerate(lastfm_top_tracks):
     try:
@@ -51,9 +52,10 @@ for i, lastfm_track in enumerate(lastfm_top_tracks):
         time.sleep(2) # I don't think Spotify's going to ban me, but doesn't hurt
                     # to be a little extra careful!
     except Exception as e:
+        failed.append(lastfm_track)
         # Sometimes things crash. This might give me a chance to continue, if I want.
-        print(e)
-        input("continue? ")
+        print(f"{e} on {lastfm_track.item.title}")
+        input("press enter to continue…")
 
 for i, lastfm_track in enumerate(find_manually):
     try:
