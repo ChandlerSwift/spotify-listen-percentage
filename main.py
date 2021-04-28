@@ -45,7 +45,7 @@ for i, lastfm_track in enumerate(lastfm_top_tracks):
         if found_track:
             found_track['my_playcount'] = lastfm_track.weight
             track_data.append(found_track)
-            print(f"{found_track['name']}: {found_track['my_playcount']}/{found_track['playcount']} ({100*found_track['my_playcount']/found_track['playcount']:.3f}%)")
+            print(f"{i}. {found_track['name']}: {found_track['my_playcount']}/{found_track['playcount']} ({100*found_track['my_playcount']/found_track['playcount']:.3f}%)")
         else:
             find_manually.append(lastfm_track)
             print(f"No track {lastfm_track.item.title} found on album {spotify_track.album.name} (will find later)")
@@ -80,7 +80,7 @@ for i, lastfm_track in enumerate(find_manually):
         if found_track:
             found_track['my_playcount'] = lastfm_track.weight
             track_data.append(found_track)
-            print(f"{found_track['name']}: {found_track['my_playcount']}/{found_track['playcount']} ({100*found_track['my_playcount']/found_track['playcount']:.3f}%)")
+            print(f"{i/len(find_manually)}. {found_track['name']}: {found_track['my_playcount']}/{found_track['playcount']} ({100*found_track['my_playcount']/found_track['playcount']:.3f}%)")
         else:
             print("Still not found, ignoring")
 
