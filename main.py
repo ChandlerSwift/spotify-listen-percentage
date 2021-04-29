@@ -21,6 +21,8 @@ failed = []
 zerodivides = []
 
 for i, lastfm_track in enumerate(lastfm_top_tracks):
+    if lastfm_track.weight < 5: # We don't really care about the long tail
+        continue
     try:
         try:
             spotify_track = spotify_client.search(
