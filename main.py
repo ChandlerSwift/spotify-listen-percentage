@@ -79,7 +79,7 @@ for i, lastfm_track in enumerate(find_manually):
         if found_track:
             found_track['my_playcount'] = lastfm_track.weight
             track_data.append(found_track)
-            print(f"{i/len(find_manually)}. {found_track['name']}: {found_track['my_playcount']}/{found_track['playcount']} ({100*found_track['my_playcount']/found_track['playcount']:.3f}%)")
+            print(f"{i}/{len(find_manually)}. {found_track['name']}: {found_track['my_playcount']}/{found_track['playcount']} ({100*found_track['my_playcount']/found_track['playcount']:.3f}%)")
         else:
             print("Still not found, ignoring")
 
