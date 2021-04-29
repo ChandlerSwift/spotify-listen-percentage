@@ -8,14 +8,11 @@ import pickle
 
 import secrets
 
-API_KEY = secrets.lastfm["api_key"]
-API_SECRET = secrets.lastfm["secret"]
+lastfm_client = pylast.LastFMNetwork(api_key=secrets.lastfm["api_key"], api_secret=secrets.lastfm["secret"])
 
-network = pylast.LastFMNetwork(api_key=API_KEY, api_secret=API_SECRET)
+spotify_client = spotify.Client(secrets.spotify["client_id"], secrets.spotify["client_secret"])
 
-spotify = spotify.Client(secrets.spotify["client_id"], secrets.spotify["client_secret"])
-
-lastfm_top_tracks = network.get_user("chandlerswift").get_top_tracks(stream=True, limit=None)
+lastfm_top_tracks = lastfm_client.get_user("chandlerswift").get_top_tracks(stream=True, limit=None)
 
 track_data=[]
 find_manually=[]
@@ -26,7 +23,7 @@ zerodivides = []
 for i, lastfm_track in enumerate(lastfm_top_tracks):
     try:
         try:
-            spotify_track = spotify.search(
+            spotify_track = spotify_client.search(
                 f"{lastfm_track.item.artist.name} {lastfm_track.item.title}", types=["track"], limit=1
             ).tracks[0]
         except IndexError:
@@ -62,7 +59,7 @@ for i, lastfm_track in enumerate(lastfm_top_tracks):
 
 for i, lastfm_track in enumerate(find_manually):
     try:
-        spotify_track = spotify.search(
+        spotify_track = spotify_client.search(
             f"{lastfm_track.item.artist.name} {lastfm_track.item.title}", types=["track"], limit=1
         ).tracks[0]
 
